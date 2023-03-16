@@ -1,3 +1,5 @@
+import { onUpdateTrigger } from "../../../knexfile.js"
+
 /**
  * @param { import("knex").Knex } knex
  * @returns { Promise<void> }
@@ -9,6 +11,8 @@ export async function up(knex) {
 
     table.timestamp('created_at').defaultTo(knex.fn.now())
     table.timestamp('updated_at').defaultTo(knex.fn.now())
+  }).then(() => {
+    knex.raw(onUpdateTrigger('users'))
   })
 };
 

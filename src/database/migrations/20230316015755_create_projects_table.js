@@ -1,3 +1,5 @@
+import { onUpdateTrigger } from "../../../knexfile.js"
+
 /**
  * @param { import("knex").Knex } knex
  * @returns { Promise<void> }
@@ -15,7 +17,9 @@ export async function up(knex) {
         .onDelete('CASCADE')
 
       table.timestamps(true, true)
-    })
+    }).then(() => {
+        knex.raw(onUpdateTrigger('projects'))
+      })
   };
   
   /**

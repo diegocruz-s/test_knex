@@ -8,8 +8,8 @@ export async function seed(knex) {
       .then(() => {
         // Inserts seed entries
         return knex('projects').insert([
-          { user_id: 8, title: 'Meu projeto' },
-          { user_id: 9, title: 'Projeto' },
+          { user_id: 1, title: 'Meu projeto' },
+          { user_id: 2, title: 'Projeto' },
         ]);
       })
     
