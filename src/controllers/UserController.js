@@ -3,6 +3,7 @@ import { Knex } from "../database/index.js"
 export const UserController = {
     async index (req, res) {
         const results = await Knex('users')
+            .where('deleted_at', null)
 
         return res.json(results)
     },
@@ -43,11 +44,11 @@ export const UserController = {
             const { id } = req.params
 
             await Knex('users')
-                .del()
                 .where({ id })
+                .update('deleted_at', new Date())
 
             return res.status(204).send()
-            
+
         } catch (error) {
             next(error)
         }

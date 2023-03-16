@@ -5,6 +5,7 @@ export const ProjectsController = {
         try {
             const { user_id, page = 1 } = req.query
             const query = Knex('projects')
+
                 .limit(5)
                 .offset((page - 1) * 5)
 
@@ -15,6 +16,7 @@ export const ProjectsController = {
                     .where({ user_id })
                     .join('users', 'users.id', '=', 'projects.user_id')
                     .select('projects.*', 'users.username')
+                    .where('users.deleted_at', null)
 
                 countObj
                     .where({ user_id })
